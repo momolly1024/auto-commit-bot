@@ -1,8 +1,8 @@
 name: Generate GitHub Art
 
 on:
-  push: {}           # 每次 push 時也會執行
-  workflow_dispatch:  # 或手動觸發
+  push: {}
+  workflow_dispatch:
 
 jobs:
   commit-art:
@@ -11,19 +11,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # 需要完整的 git 歷史才能正確推送 commit
+          fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+
+      - name: Configure Git Identity
+        run: |
+          git config --global user.email "momolly1024@gmail.com"
+          git config --global user.name "momolly1024"
+          
       - name: Run commit art script
         run: |
           chmod +x ./make_art.py
           python3 ./make_art.py
-      - name: Configure Git and Push
-        run: |
-          git config --global user.email "momolly1024@gmail.com"
-          git config --global user.name "momolly1024"
-          git push
+
+      - name: Push changes
+        run: git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

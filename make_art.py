@@ -144,7 +144,7 @@ if __name__ == "__main__":
     print_pattern(pattern)
 
     # 設定起始日期（可自行調整，此例設定為 2024-06-02）
-    start_date = datetime.date(2024, 6, 2)
+    start_date = datetime.date(2024, 2, 18)
     print("起始日期：", start_date)
 
     # 依據點陣圖產生 commit：
